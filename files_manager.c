@@ -19,50 +19,24 @@ static void	freeall(char **arr, int i)
 	free(arr);
 }
 
-char    **get_files_path(char **data, size_t size)
+void    on_error()
 {
-    char **files_path;
-
-    if (size < 2)
-        return (0);
-    files_path = malloc(3 * sizeof(char *));
-    if (!files_path)
-        return (0);
-    files_path[0] = ft_strdup(data[0]);
-    if (!files_path[0])
-        return (0);
-    files_path[1] = ft_strdup(data[size - 1]);
-    if (!files_path[1])
-    {
-        freeall(files_path, 0);
-        return (0);
-    }
-    
-    return (files_path);
+    perror("pipex");
+    exit(EXIT_FAILURE);
 }
-
-t_files get_files(char **paths)
+t_files get_files(char **data, size_t size)
 {
     t_files files;
-
-    files.in_fd = open_file(paths[0], O_RDONLY);
+    
+    if (size < 3)
+        return ((t_files){0});
+    files.in_fd = open(data[0], O_RDONLY);
     if (files.in_fd == -1)
-    {
-        freeall(paths, 1);
-        perror("")
-    }
-    files.out_fd = open_file(paths[1], O_RDONLY);
-
-}
-
-int open_file(char *path, int flag)
-{
-    int fd;
-
-    fd = open(path, flag);
-    if (fd == -1)
-        return (fd);
-    return (fd);
+        on_error();
+    files.out_fd = open(data[size - 1], O_CREAT | O_RDWR | O_TRUNC);
+    if (files.out_fd == -1)
+        on_error();
+    return (files);
 }
 
 char    **get_cmds(char **data, size_t size)

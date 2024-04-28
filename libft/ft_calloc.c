@@ -14,11 +14,9 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	i;
 	size_t	bytes;
 	char	*ptr;
 
-	i = 0;
 	bytes = count * size;
 	if (size && count != bytes / size)
 		return (0);

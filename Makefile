@@ -8,7 +8,7 @@ NAME = pipex
 
 
 $(NAME): $(SRCS) $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(SRCS) $(LIBFT_DIR) -o $@
+	$(CC) $(SRCS) $(LIBFT_DIR) -o $@
 
 $(LIBFT_DIR):
 	@make -C libft

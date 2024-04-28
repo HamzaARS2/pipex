@@ -8,8 +8,6 @@
 #include <fcntl.h>
 
 typedef struct files {
-    char *in_file;
-    char *out_file;
     int in_fd;
     int out_fd;
 } t_files;

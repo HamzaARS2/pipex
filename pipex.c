@@ -13,24 +13,28 @@
 
 #include "pipex.h"
 
-
-int create_child_process()
+void    execute_cmd(char *cmd[], int read_fd, int write_fd)
 {
-    static int pid;
-
-    pid = -1;
-    if (pid != 0)
-        pid = fork();
-    return (pid);
+    if (fork())
+        return ;
+    // Child Process
+    dup2(read_fd, STDIN_FILENO); 
+    close(read_fd);   
+    dup2(write_fd, STDOUT_FILENO);
+    close(write_fd);
+    execve(cmd[0], cmd, 0);
+    perror("pipex");
+    exit(EXIT_FAILURE);
 }
-
 
 
 int main(int argc, char **argv)
 {
    t_files files = get_files(argv + 1, argc - 1);
    char    **cmds = get_cmds(argv + 1, argc - 1);
-   
+   char *cmd[] = {cmds[0], cmds[0], 0};
+   printf("|| %s ||\n", cmds[0]);
+//    execute_cmd(cmd, files.in_fd, files.out_fd);
 }
 
 

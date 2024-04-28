@@ -1,4 +1,4 @@
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SRC_FILES = ft_isalnum.c ft_isdigit.c ft_memmove.c ft_strlcat.c ft_tolower.c \
              ft_isalpha.c ft_isprint.c ft_memset.c ft_strlcpy.c ft_toupper.c \
