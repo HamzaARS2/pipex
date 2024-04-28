@@ -33,7 +33,7 @@ t_files get_files(char **data, size_t size)
     files.in_fd = open(data[0], O_RDONLY);
     if (files.in_fd == -1)
         on_error();
-    files.out_fd = open(data[size - 1], O_CREAT | O_RDWR | O_TRUNC);
+    files.out_fd = open(data[size - 1], O_CREAT | O_RDWR , 0777);
     if (files.out_fd == -1)
         on_error();
     return (files);

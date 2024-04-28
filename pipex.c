@@ -13,30 +13,103 @@
 
 #include "pipex.h"
 
-void    execute_cmd(char *cmd[], int read_fd, int write_fd)
+void print_commands(char ***commands)
 {
-    if (fork())
-        return ;
-    // Child Process
+    // Print the commands and their arguments
+    for (size_t i = 0; commands[i] != NULL; i++)
+    {
+        printf("Command %zu:\n", i + 1);
+        for (size_t j = 0; commands[i][j] != NULL; j++)
+        {
+            printf("  Argument %zu: %s\n", j + 1, commands[i][j]);
+        }
+    }
+}
+
+int execute_cmd(char *cmd[], int read_fd, int write_fd)
+{
+    int pid = fork();
+    if (pid)
+        return pid;
     dup2(read_fd, STDIN_FILENO); 
     close(read_fd);   
-    dup2(write_fd, STDOUT_FILENO);
-    close(write_fd);
+    // dup2(write_fd, STDOUT_FILENO);
+    // close(write_fd);
     execve(cmd[0], cmd, 0);
     perror("pipex");
     exit(EXIT_FAILURE);
 }
 
+char ***split_cmds(char **cmds_str, size_t cmds_count)
+{
+    size_t i;
+    char ***result;
+    i = 0;
+    
+    result = malloc((cmds_count + 1) * sizeof(char **));
+    if (!result)
+        return (0);
+    while (cmds_str[i])
+    {
 
+        result[i] = ft_split(cmds_str[i], ' ');
+        if (!result[i])
+        {
+            for (size_t j = 0; j < i; j++)
+                free(result[j]);
+            free(result);
+            return (0);
+        }
+        i++;
+    }
+    result[cmds_count] = 0;
+    return(result);
+}
+
+int *run_all_cmds(char **cmds_str, t_files files)
+{
+    int i = 0;
+    int *pids;
+    size_t  cmds_count;
+    char ***cmds;
+
+    cmds_count = arrlen(cmds_str);
+    cmds = split_cmds(cmds_str, cmds_count);
+    pids = malloc(cmds_count * sizeof(int));
+    while (cmds[i])
+    {
+        pids[i] = execute_cmd(cmds[i], files.in_fd, files.out_fd);
+        i++;
+    }
+    return (pids);
+}
+void wait_for_pids(int *pids) {
+    size_t i;
+    size_t num_pids;
+    
+    num_pids = sizeof(pids) / sizeof(pids[0]);
+    printf("numpids: %zu\n", num_pids);
+    i = 0;
+    while(i <= num_pids)
+    {
+        waitpid(pids[i], NULL, 0);
+        printf("Child process with PID %d has terminated\n", pids[i++]);
+    }
+}
 int main(int argc, char **argv)
 {
    t_files files = get_files(argv + 1, argc - 1);
-   char    **cmds = get_cmds(argv + 1, argc - 1);
-   char *cmd[] = {cmds[0], cmds[0], 0};
-   printf("|| %s ||\n", cmds[0]);
-//    execute_cmd(cmd, files.in_fd, files.out_fd);
+   char    **cmds_str = get_cmds(argv + 1, argc - 1);
+   
+   int *pids = run_all_cmds(cmds_str, files);
+
+    wait_for_pids(pids);
+
 }
 
+        // waitpid(pids[i],0,0);
+//    while(i-- > 0)
+//     printf("pid[%i] = %i\n",i,wait(NULL));
 
 // int main()
 // {

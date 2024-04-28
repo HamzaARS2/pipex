@@ -1,0 +1,11 @@
+ 0  5 24
+arrlen.c
+files_manager.c
+infile.txt
+libft
+outfile.txt
+pipex
+pipex.c
+pipex.h
+test.c
+wd
