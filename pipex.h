@@ -22,5 +22,10 @@ typedef struct pids {
 t_files get_files(char **data, size_t size);
 char    **get_cmds(char **data, size_t size);
 size_t  arrlen(char **arr);
+int execute_cmd(char *cmd[], int read_fd, int write_fd);
+char ***split_cmds(char **cmds_str, size_t cmds_count);
+t_pids  run_cmds(char **cmds_str, t_files files);
+
+
 
 #endif

@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c files_manager.c arrlen.c
+SRCS = pipex.c files_manager.c arrlen.c cmds_manager.c
 
 LIBFT_DIR = libft/libft.a
 
