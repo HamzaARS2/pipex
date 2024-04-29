@@ -13,6 +13,13 @@ void print_commands(char ***commands)
     }
 }
 
+static void	freelist(char ***arr, int i)
+{
+	while (i >= 0 && arr[i])
+		free(arr[i--]);
+	free(arr);
+}
+
 int execute_cmd(char *cmd[], int read_fd, int write_fd)
 {
     int pid = fork();
@@ -20,54 +27,52 @@ int execute_cmd(char *cmd[], int read_fd, int write_fd)
         return pid;
     dup2(read_fd, STDIN_FILENO); 
     close(read_fd);   
-    // dup2(write_fd, STDOUT_FILENO);
-    // close(write_fd);
+    dup2(write_fd, STDOUT_FILENO);
+    close(write_fd);
     execve(cmd[0], cmd, 0);
-    perror("pipex");
-    exit(EXIT_FAILURE);
+    on_error();
 }
 
-char ***split_cmds(char **cmds_str, size_t cmds_count)
+t_cmds  split_cmds(char **cmds_str)
 {
     size_t i;
-    char ***result;
+    t_cmds cmds;
     i = 0;
     
-    result = malloc((cmds_count + 1) * sizeof(char **));
-    if (!result)
-        return (0);
+    cmds.size = arrlen(cmds_str);
+    cmds.list = malloc((cmds.size + 1) * sizeof(char **));
+    if (!cmds.list)
+        on_error();
     while (cmds_str[i])
     {
-
-        result[i] = ft_split(cmds_str[i], ' ');
-        if (!result[i])
+        cmds.list[i] = ft_split(cmds_str[i], ' ');
+        if (!cmds.list[i])
         {
-            for (size_t j = 0; j < i; j++)
-                free(result[j]);
-            free(result);
-            return (0);
+            freelist(cmds.list, i - 1);
+            on_error();
         }
         i++;
     }
-    result[cmds_count] = 0;
-    return(result);
+    cmds.list[cmds.size] = 0;
+    return(cmds);
 }
 
 t_pids  run_cmds(char **cmds_str, t_files files)
 {
-    int i = 0;
+    size_t i;
     t_pids pids;
-    size_t  cmds_count;
-    char ***cmds;
+    t_cmds cmds;
 
-    cmds_count = arrlen(cmds_str);
-    cmds = split_cmds(cmds_str, cmds_count);
-    pids.ids = malloc(cmds_count * sizeof(int));
-    while (cmds[i])
+    i = 0;
+    cmds = split_cmds(cmds_str);
+    pids.ids = malloc(cmds.size * sizeof(int));
+    if (!pids.ids)
+        on_error();
+    while (cmds.list[i])
     {
-        pids.ids[i] = execute_cmd(cmds[i], files.in_fd, files.out_fd);
+        pids.ids[i] = execute_cmd(cmds.list[i], files.in_fd, files.out_fd);
         i++;
     }
-    pids.size = cmds_count;
+    pids.size = cmds.size;
     return (pids);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/25 12:42:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/04/29 08:37:07 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void wait_childs(t_pids pids) {
     while(i < pids.size)
         waitpid(pids.ids[i++], 0, 0);
 }
+
 int main(int argc, char **argv)
 {
    t_files files = get_files(argv + 1, argc - 1);
