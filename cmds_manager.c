@@ -20,6 +20,8 @@ static void	freelist(char ***arr, int i)
 	free(arr);
 }
 
+
+
 int execute_cmd(char *cmd[], int read_fd, int write_fd)
 {
     int pid = fork();
