@@ -1,16 +1,1 @@
-Makefile
-args_handler.c
-arrlen.c
-cmds_manager.c
-files_manager.c
-infile.txt
-libft
-on_error.c
-outfile.txt
-pipex
-pipex.c
-pipex.h
-test.c
-wd
-this is a sample example
- 0  0  0
+20

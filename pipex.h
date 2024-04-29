@@ -24,7 +24,7 @@ typedef struct cmds {
 } t_cmds;
 
 t_files get_files(char **data, size_t size);
-char    **get_cmds(char **data, size_t size);
+char    **get_cmds_str(char **data, size_t size);
 size_t  arrlen(char **arr);
 int execute_cmd(char *cmd[], int read_fd, int write_fd);
 t_cmds  split_cmds(char **cmds_str);

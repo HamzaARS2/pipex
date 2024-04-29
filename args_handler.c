@@ -28,35 +28,35 @@ t_files get_files(char **data, size_t size)
     files.in_fd = open(data[0], O_RDONLY);
     if (files.in_fd == -1)
         on_error();
-    files.out_fd = open(data[size - 1], O_CREAT | O_RDWR , 0777);
+    files.out_fd = open(data[size - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
     if (files.out_fd == -1)
         on_error();
     return (files);
 }
 
-char    **get_cmds_arg(char **data, size_t size)
+char    **get_cmds_str(char **data, size_t size)
 {
-    char **cmds_arg;
+    char **cmds_str;
     int i;
     int end;
     
     if (size < 3)
         return (0);
-    cmds_arg = malloc((size - 1) * sizeof(char *));
-    if (!cmds_arg)
+    cmds_str = malloc((size - 1) * sizeof(char *));
+    if (!cmds_str)
         return (0);
     i = 0;
     end = size - 1;
     while (++i < end)
     {
-        cmds_arg[i - 1] = ft_strdup(data[i]);
-        if (!cmds_arg[i - 1])
+        cmds_str[i - 1] = ft_strdup(data[i]);
+        if (!cmds_str[i - 1])
         {
-            freeall(cmds_arg, i - 2);
+            freeall(cmds_str, i - 2);
             return (0);
         }
     }
-    cmds_arg[i - 1] = 0;
-    return (cmds_arg);
+    cmds_str[i - 1] = 0;
+    return (cmds_str);
 }
 

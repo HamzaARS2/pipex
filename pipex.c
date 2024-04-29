@@ -24,7 +24,7 @@ void wait_childs(t_pids pids) {
 int main(int argc, char **argv)
 {
    t_files files = get_files(argv + 1, argc - 1);
-   char    **cmds_str = get_cmds(argv + 1, argc - 1);
+   char    **cmds_str = get_cmds_str(argv + 1, argc - 1);
    
    t_pids pids = run_cmds(cmds_str, files);
    wait_childs(pids);

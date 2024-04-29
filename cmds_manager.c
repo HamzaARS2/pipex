@@ -76,3 +76,4 @@ t_pids  run_cmds(char **cmds_str, t_files files)
     pids.size = cmds.size;
     return (pids);
 }
+
