@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/29 17:13:07 by klock            ###   ########.fr       */
+/*   Updated: 2024/04/30 07:26:26 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,25 @@ void wait_childs(t_pids pids) {
         waitpid(pids.ids[i++], 0, 0);
 }
 
-int **create_pipes(size_t count)
+t_pipes create_pipes(size_t count)
 {
     size_t i;
-    int **pipes;
+    t_pipes pipes;
     
     i = 0;
-    pipes = malloc(count * sizeof(int *));
-    if (!pipes)
+    pipes.list = malloc(count * sizeof(int *));
+    if (!pipes.list)
         on_error();
     while (i < count)
     {
-        pipes[i] = malloc(2 * sizeof(int));
-        if (!pipes[i])
+        pipes.list[i] = malloc(2 * sizeof(int));
+        if (!pipes.list[i])
             on_error();
-        if (pipe(pipes[i]) == -1)
+        if (pipe(pipes.list[i]) == -1)
             on_error();
         i++;
     }
+    pipes.size = count;
     return (pipes);
 }
 //   int p[2];
@@ -63,7 +64,7 @@ int **create_pipes(size_t count)
 //             execve(cmds.list[1][0], cmds.list[1], 0);
 //             on_error();
 //         }
-int execute_cmd2(char *cmd[], int read_fd, int write_fd, int fd_close[])
+int execute_cmd2(char *cmd[], int read_fd, int write_fd, t_pipes pipes)
 {
     int pid;
     int i;
@@ -71,54 +72,40 @@ int execute_cmd2(char *cmd[], int read_fd, int write_fd, int fd_close[])
     if (pid)
         return (pid);
     i = 0;
-    while (i < 2)
+    dup2(read_fd, STDIN_FILENO); 
+    dup2(write_fd, STDOUT_FILENO);
+    while (i < pipes.size)
     {
-        if (fd_close[i] != -1)
-            close(fd_close[i]);
+        close(pipes.list[i][0]);
+        close(pipes.list[i][1]);
         i++;
     }
-    dup2(read_fd, STDIN_FILENO); 
-    close(read_fd);   
-    dup2(write_fd, STDOUT_FILENO);
-    close(write_fd);
     execve(cmd[0], cmd, 0);
     on_error();
 }
 
-    // if (cmds.size == 2)
-    // {
-    //     execute_cmd2(cmds.list[0], files.in_fd, pipes[0][1], pipes[0][0]);
-    //     execute_cmd2(cmds.list[1], pipes[0][0], files.out_fd, pipes[0][1]);
-    //     return ;
-    // }
     
-void    execute_all(t_cmds cmds, t_files files, int **pipes)
+void    execute_all(t_cmds cmds, t_files files, t_pipes pipes)
 {
     size_t i;
-    int fd_close[2];
+    int **p;
+
+    if (cmds.size == 1)
+    {
+        execute_cmd2(cmds.list[0], files.in_fd, files.out_fd, pipes);
+        return ;
+    }
     
+    p = pipes.list;
     i = 0;
     while (i < cmds.size)
     {
-
         if (i == 0)
-        {
-            fd_close[0] = pipes[i][0];
-            fd_close[1] = -1;
-            execute_cmd2(cmds.list[i], files.in_fd, pipes[i][1], fd_close);
-        }
+            execute_cmd2(cmds.list[i], files.in_fd, p[i][1], pipes);
         else if (i == cmds.size - 1)
-        {
-            fd_close[0] = pipes[i - 1][1];
-            fd_close[1] = -1;
-            execute_cmd2(cmds.list[i], pipes[i - 1][0], files.out_fd,fd_close);
-        }
+            execute_cmd2(cmds.list[i], p[i - 1][0], files.out_fd, pipes);
         else
-        {
-            fd_close[0] = pipes[i - 1][1];
-            fd_close[1] = pipes[i][0];
-            execute_cmd2(cmds.list[i], pipes[i - 1][0], pipes[i][1], fd_close);
-        }
+            execute_cmd2(cmds.list[i], p[i - 1][0], p[i][1], pipes);
         i++;
     }
 }
@@ -126,7 +113,7 @@ void    execute_all(t_cmds cmds, t_files files, int **pipes)
 int main(int argc, char **argv)
 {
     t_cmds cmds;
-    int **pipes;
+    t_pipes pipes;
     t_files files = get_files(argv + 1, argc - 1);
     char    **cmds_str = get_cmds_str(argv + 1, argc - 1);
 

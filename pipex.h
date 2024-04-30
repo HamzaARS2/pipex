@@ -23,6 +23,11 @@ typedef struct cmds {
     char    ***list;
 } t_cmds;
 
+typedef struct pipes {
+    size_t size;
+    int **list;
+} t_pipes;
+
 t_files get_files(char **data, size_t size);
 char    **get_cmds_str(char **data, size_t size);
 size_t  arrlen(char **arr);
