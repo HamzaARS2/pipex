@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/30 11:55:51 by klock            ###   ########.fr       */
+/*   Updated: 2024/04/30 12:32:04 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,21 @@ void wait_childs(int childs) {
     i = 0;
     while(i < childs)
     {
-        printf("%i\n", i);
         if (wait(0) == -1)
             perror("waitpid");
         i++;
+    }
+}
+
+void    close_pipes(t_pipes pipes)
+{
+    int i;
+
+    i = 0;
+    while(i < pipes.size)
+    {
+        close(pipes.list[i][0]);
+        close(pipes.list[i++][1]);
     }
 }
 
@@ -59,12 +70,7 @@ int execute_cmd2(char *cmd[], int read_fd, int write_fd, t_pipes pipes)
         dup2(write_fd, STDOUT_FILENO);
         close(read_fd);
         close(write_fd);
-        while (i < pipes.size)
-        {
-            close(pipes.list[i][0]);
-            close(pipes.list[i][1]);
-            i++;
-        }
+        close_pipes(pipes);
         execve(cmd[0], cmd, 0);
         on_error();
     }
@@ -104,14 +110,9 @@ int main(int argc, char **argv)
     cmds = split_cmds(cmds_str);
     pipes = create_pipes(cmds.size - 1);
     int childs = execute_all(cmds, files, pipes);
-    for(int i = 0; i < pipes.size; i++)
-    {
-        close(pipes.list[i][0]);
-        close(pipes.list[i][1]);
-    }
+    close_pipes(pipes);
     close(files.in_fd);
     close(files.out_fd);
-    printf("childs = %i\n", childs);
     wait_childs(childs);
     // close(files.in_fd);
     // close(files.out_fd);
