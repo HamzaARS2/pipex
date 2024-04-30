@@ -6,19 +6,24 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/30 07:26:26 by klock            ###   ########.fr       */
+/*   Updated: 2024/04/30 11:55:51 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "pipex.h"
 
-void wait_childs(t_pids pids) {
+void wait_childs(int childs) {
     size_t i;
 
     i = 0;
-    while(i < pids.size)
-        waitpid(pids.ids[i++], 0, 0);
+    while(i < childs)
+    {
+        printf("%i\n", i);
+        if (wait(0) == -1)
+            perror("waitpid");
+        i++;
+    }
 }
 
 t_pipes create_pipes(size_t count)
@@ -42,72 +47,51 @@ t_pipes create_pipes(size_t count)
     pipes.size = count;
     return (pipes);
 }
-//   int p[2];
-//         pipe(p);
-//         if (fork() == 0)
-//         {
-//             close(p[0]);
-//             dup2(files.in_fd, STDIN_FILENO); 
-//             close(files.in_fd);   
-//             dup2(p[1], STDOUT_FILENO);
-//             execve(cmds.list[0][0], cmds.list[0], 0);
-//             on_error();
-//         }
-        
-//         if (fork() == 0)
-//         {
-//             close(p[1]);
-//             dup2(p[0], STDIN_FILENO); 
-//             close(p[0]);   
-//             dup2(files.out_fd, STDOUT_FILENO);
-//             close(files.out_fd);
-//             execve(cmds.list[1][0], cmds.list[1], 0);
-//             on_error();
-//         }
+
 int execute_cmd2(char *cmd[], int read_fd, int write_fd, t_pipes pipes)
 {
-    int pid;
     int i;
-    pid = fork();
-    if (pid)
-        return (pid);
-    i = 0;
-    dup2(read_fd, STDIN_FILENO); 
-    dup2(write_fd, STDOUT_FILENO);
-    while (i < pipes.size)
+
+    if (fork() == 0)
     {
-        close(pipes.list[i][0]);
-        close(pipes.list[i][1]);
-        i++;
+        i = 0;
+        dup2(read_fd, STDIN_FILENO); 
+        dup2(write_fd, STDOUT_FILENO);
+        close(read_fd);
+        close(write_fd);
+        while (i < pipes.size)
+        {
+            close(pipes.list[i][0]);
+            close(pipes.list[i][1]);
+            i++;
+        }
+        execve(cmd[0], cmd, 0);
+        on_error();
     }
-    execve(cmd[0], cmd, 0);
-    on_error();
+    return (1);
 }
 
     
-void    execute_all(t_cmds cmds, t_files files, t_pipes pipes)
+int  execute_all(t_cmds cmds, t_files files, t_pipes p)
 {
     size_t i;
-    int **p;
-
-    if (cmds.size == 1)
-    {
-        execute_cmd2(cmds.list[0], files.in_fd, files.out_fd, pipes);
-        return ;
-    }
+    int childs;
     
-    p = pipes.list;
+    childs = 0;
+    if (cmds.size == 1)
+        return (execute_cmd2(cmds.list[0], files.in_fd, files.out_fd, p));
     i = 0;
     while (i < cmds.size)
     {
         if (i == 0)
-            execute_cmd2(cmds.list[i], files.in_fd, p[i][1], pipes);
+            childs += execute_cmd2(cmds.list[i], files.in_fd, p.list[i][1], p);
         else if (i == cmds.size - 1)
-            execute_cmd2(cmds.list[i], p[i - 1][0], files.out_fd, pipes);
+            childs += execute_cmd2(cmds.list[i], p.list[i - 1][0], files.out_fd, p);
         else
-            execute_cmd2(cmds.list[i], p[i - 1][0], p[i][1], pipes);
+            childs += execute_cmd2(cmds.list[i], p.list[i - 1][0], p.list[i][1], p);
         i++;
     }
+    return (childs);
 }
 
 int main(int argc, char **argv)
@@ -119,8 +103,22 @@ int main(int argc, char **argv)
 
     cmds = split_cmds(cmds_str);
     pipes = create_pipes(cmds.size - 1);
-    execute_all(cmds, files, pipes);
-
+    int childs = execute_all(cmds, files, pipes);
+    for(int i = 0; i < pipes.size; i++)
+    {
+        close(pipes.list[i][0]);
+        close(pipes.list[i][1]);
+    }
+    close(files.in_fd);
+    close(files.out_fd);
+    printf("childs = %i\n", childs);
+    wait_childs(childs);
+    // close(files.in_fd);
+    // close(files.out_fd);
+    // wait_childs(childs);
+    // wait_childs(pids);
+    
+    
 }
 
 
