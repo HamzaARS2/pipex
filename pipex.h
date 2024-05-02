@@ -23,18 +23,22 @@ typedef struct cmds {
     char    ***list;
 } t_cmds;
 
-typedef struct pipes {
-    size_t size;
-    int **list;
-} t_pipes;
+typedef struct rw_ends {
+    int rw[2];
+    int pi[2];
+} t_rw_ends;
 
 t_files get_files(char **data, size_t size);
 char    **get_cmds_str(char **data, size_t size);
+int     execute_cmds(t_cmds cmds, t_files files, char **env);
+void    wait_childs(int childs);
+char    *get_env_path(char **env);
+int     set_cmds_path(t_cmds *cmds, char **paths);
 size_t  arrlen(char **arr);
-int execute_cmd(char *cmd[], int read_fd, int write_fd);
 t_cmds  split_cmds(char **cmds_str);
-t_pids  run_cmds(char **cmds_str, t_files files);
 void    on_error();
+void    display_error(char *cmd, char *msg);
+char    **split_path(char **env);
 
 
 #endif

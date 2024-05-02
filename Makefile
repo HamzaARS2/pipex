@@ -1,6 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c args_handler.c arrlen.c cmds_manager.c on_error.c
+SRCS = pipex.c args_handler.c arrlen.c split_cmds.c commands_executor.c on_error.c \
+wait_childs.c path_finder.c display_error.c
 
 LIBFT_DIR = libft/libft.a
 
@@ -17,3 +18,8 @@ all: $(NAME)
 
 clean:
 	@make -C libft clean
+
+fclean: clean
+	@make -C libft fclean
+
+re: fclean all

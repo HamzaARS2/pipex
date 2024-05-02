@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   display_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 16:41:50 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/02 11:36:05 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/02 11:38:17 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/02 11:38:29 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void    display_error(char *cmd, char *msg)
 {
-	size_t	newstrlen;
-	size_t	s1len;
-	char	*newstr;
-
-	if (!s1 || !s2)
-		return (0);
-	s1len = ft_strlen(s1);
-	newstrlen = s1len + ft_strlen(s2);
-	newstr = malloc((newstrlen + 1) * sizeof(char));
-	if (!newstr)
-		return (0);
-	ft_strlcpy(newstr, s1, s1len + 1);
-	ft_strlcat(newstr, s2, newstrlen + 1);
-	return (newstr);
+    write(2, cmd, ft_strlen(cmd));
+    write(2, msg, ft_strlen(msg));
 }
