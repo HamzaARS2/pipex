@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/29 07:05:57 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/03 22:20:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_files get_files(char **data, size_t size)
         return ((t_files){0});
     files.in_fd = open(data[0], O_RDONLY);
     if (files.in_fd == -1)
-        on_error();
+        error_exit();
     files.out_fd = open(data[size - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
     if (files.out_fd == -1)
-        on_error();
+        error_exit();
     return (files);
 }
 

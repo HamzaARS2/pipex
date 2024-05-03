@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/02 20:38:11 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:25:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void    print_cmds(t_cmds cmds)
     }
 }
 
-
 int main(int argc, char **argv, char **env)
 {
     t_cmds  cmds;
     t_files files;
     char    **cmds_str;
     char    **paths;
-
+    int childs;
+    
     if (argc - 3 < 2)
     {
-        display_error("pipex: ", "Not enough arguments!");
+        display_error("pipex: ", "Not enough arguments!\n");
         return (EXIT_FAILURE);
     }
     files = get_files(argv + 1, argc - 1);
@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **env)
     paths = split_path(env);
     cmds = split_cmds(cmds_str);
     set_cmds_path(&cmds, paths);
-    int childs = execute_cmds(cmds, files, env);
+    childs = execute_cmds(cmds, files, env);
     wait_childs(childs);
     
     

@@ -1,7 +1,7 @@
 
 #include "pipex.h"
 
-void    on_error()
+void    error_exit()
 {
     perror("pipex");
     exit(EXIT_FAILURE);

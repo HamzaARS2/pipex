@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 22:17:42 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/03 22:20:43 by helarras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -36,9 +48,10 @@ char    *get_env_path(char **env);
 int     set_cmds_path(t_cmds *cmds, char **paths);
 size_t  arrlen(char **arr);
 t_cmds  split_cmds(char **cmds_str);
-void    on_error();
-void    display_error(char *cmd, char *msg);
+void    error_exit();
+void    display_error(char *title, char *msg);
 char    **split_path(char **env);
+char	**quote_split(char const *str, char c);
 
 
 #endif

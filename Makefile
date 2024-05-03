@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c args_handler.c arrlen.c split_cmds.c commands_executor.c on_error.c \
-wait_childs.c path_finder.c display_error.c
+SRCS = pipex.c args_handler.c arrlen.c split_cmds.c commands_executor.c error_exit.c \
+wait_childs.c path_finder.c display_error.c quote_split.c
 
 LIBFT_DIR = libft/libft.a
 
