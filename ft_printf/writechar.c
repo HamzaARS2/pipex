@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_error.c                                    :+:      :+:    :+:   */
+/*   writechar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 11:38:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/03 22:17:21 by helarras         ###   ########.fr       */
+/*   Created: 2024/01/09 14:10:22 by helarras          #+#    #+#             */
+/*   Updated: 2024/01/09 16:26:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "ft_printf.h"
 
-void    display_error(char *title, char *msg)
+size_t	writechar(char c)
 {
-    write(2, title, ft_strlen(title));
-    write(2, msg, ft_strlen(msg));
+	return (write(1, &c, 1));
 }

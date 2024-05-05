@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 22:17:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/03 22:20:43 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:23:44 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include "get_next_line/get_next_line.h"
+#include "ft_printf/ft_printf.h"
 
 typedef struct files {
     int in_fd;
     int out_fd;
 } t_files;
-
-typedef struct pids {
-    size_t size;
-    int *ids;
-} t_pids;
 
 typedef struct cmds {
     size_t  size;
@@ -40,18 +37,18 @@ typedef struct rw_ends {
     int pi[2];
 } t_rw_ends;
 
-t_files get_files(char **data, size_t size);
+
+t_files	get_files(char **data, size_t size, int heredoc);
 char    **get_cmds_str(char **data, size_t size);
 int     execute_cmds(t_cmds cmds, t_files files, char **env);
 void    wait_childs(int childs);
 char    *get_env_path(char **env);
 int     set_cmds_path(t_cmds *cmds, char **paths);
-size_t  arrlen(char **arr);
 t_cmds  split_cmds(char **cmds_str);
 void    error_exit();
-void    display_error(char *title, char *msg);
 char    **split_path(char **env);
 char	**quote_split(char const *str, char c);
+char	**get_cmds_str(char **data, size_t size);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:52:40 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/02 17:48:55 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:13:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int assign_path(char **cmd, char **paths)
         free(cmd_path);
         i++;
     }
-    display_error(*cmd, ": Command not found!\n");
+    ft_printf("pipex: command not found: %s\n", *cmd);
     return ('F');
 }
 

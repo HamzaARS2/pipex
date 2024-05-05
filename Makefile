@@ -1,25 +1,42 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = pipex.c args_handler.c arrlen.c split_cmds.c commands_executor.c error_exit.c \
-wait_childs.c path_finder.c display_error.c quote_split.c
 
-LIBFT_DIR = libft/libft.a
+MAIN_FILES = pipex.c files_manager.c split_cmds.c commands_executor.c error_exit.c \
+wait_childs.c path_finder.c quote_split.c get_cmds_str.c
+GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+
+MAIN_OBJS = $(MAIN_FILES:.c=.o)
+GNL_OBJS = $(GNL_FILES:.c=.o)
+
+LIBFT_DIR = libft/
+FT_PRINTF_DIR = ft_printf/
+
+LIBFT = $(LIBFT_DIR)libft.a
+FT_PRINTF = $(FT_PRINTF_DIR)libftprintf.a
 
 NAME = pipex
 
+$(NAME): $(MAIN_OBJS) $(GNL_OBJS) $(LIBFT) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(MAIN_OBJS) $(GNL_OBJS) $(LIBFT) $(FT_PRINTF) -o $@
 
-$(NAME): $(SRCS) $(LIBFT_DIR)
-	$(CC) $(SRCS) $(LIBFT_DIR) -o $@
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
-$(LIBFT_DIR):
-	@make -C libft
+$(FT_PRINTF):
+	@make -C $(FT_PRINTF_DIR)
+
+%.o: %.c pipex.h get_next_line/get_next_line.h
+	$(CC) -c $(CFLAGS) $< -o $@
 
 all: $(NAME)
 
 clean:
-	@make -C libft clean
+	rm -f $(MAIN_OBJS) $(GNL_OBJS)
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(FT_PRINTF_DIR) clean
 
 fclean: clean
-	@make -C libft fclean
+	@make -C $(LIBFT_DIR) fclean
+	@make -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all
