@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 11:45:32 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:20:17 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ char	*read_heredoc(char *limiter)
 	char	*all_lines;
 
     limiter_size = ft_strlen(limiter);
-	write(1, "pipe heredoc> ", 14);
+	ft_printf("pipe heredoc> ");
 	line = get_next_line(0);
 	all_lines = line;
+	
 	while (line && ft_strncmp(line, limiter, limiter_size))
 	{
-		write(1, "pipe heredoc> ", 14);
+		ft_printf("pipe heredoc> ");
 		line = get_next_line(0);
 		all_lines = strcombine(all_lines, line);
 	}
+	if (!all_lines)
+		exit(0);
 	return (all_lines);
 }
 

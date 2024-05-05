@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_split.c                                      :+:      :+:    :+:   */
+/*   quote_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:00:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/03 19:54:50 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:08:54 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@ void    skip_delimeter(char const *str, size_t *i ,char *delimeter)
 {
     while (str[*i] == *delimeter)
         (*i)++;
-    if (str[*i] == '\'')
+    if (str[*i] == 34 || str[*i] == 39)
     {
-        *delimeter = '\'';
-        (*i)++;
-    }
-    else if (str[*i] == '\"')
-    {
-        *delimeter = '\"';
+        *delimeter = str[*i];
         (*i)++;
     }
 }
@@ -42,6 +37,7 @@ static int	count_words(char const *str, char delimeter)
 			i++;
 		if (i > 0 && str[i - 1] != delimeter)
 			count++;
+		delimeter = 32;
 	}
 	return (count);
 }
@@ -54,7 +50,7 @@ static int	freewords(char **words, int i)
     return (0);
 }
 
-
+#include <stdio.h>
 static char	**strcut(char **words, char const *str, char delimeter,
 		size_t wcount)
 {
@@ -76,24 +72,32 @@ static char	**strcut(char **words, char const *str, char delimeter,
             freewords(words, windex - 1);
 			return (0);
         }
-		i += ccount;
+		i += ccount + 1;
 		ccount = 0;
 		windex++;
+		delimeter = 32;
 	}
 	words[windex] = 0;
 	return (words);
 }
 
-char	**quote_split(char const *str, char c)
+char	**quote_split(char *str)
 {
 	size_t	wcount;
 	char	**words;
+	char	delimiter;
 
+	delimiter = 32;
 	if (!str)
 		return (0);
-	wcount = count_words(str, c);
+	wcount = count_words(str, delimiter);
+	if (!wcount)
+	{
+		delimiter = 0;
+		wcount = count_words(str, delimiter);
+	}
 	words = malloc((wcount + 1) * sizeof(char *));
-	if (!words || !strcut(words, str, c, wcount))
+	if (!words || !strcut(words, str, delimiter, wcount))
 		return (0);
 	return (words);
 }

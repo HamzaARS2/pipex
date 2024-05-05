@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 22:17:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 12:23:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:39:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 # define PIPEX_H
 
 #include "libft/libft.h"
-#include <unistd.h>
+#include "ft_printf/ft_printf.h"
+#include "get_next_line/get_next_line.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-#include "get_next_line/get_next_line.h"
-#include "ft_printf/ft_printf.h"
 
 typedef struct files {
     int in_fd;
@@ -47,7 +45,7 @@ int     set_cmds_path(t_cmds *cmds, char **paths);
 t_cmds  split_cmds(char **cmds_str);
 void    error_exit();
 char    **split_path(char **env);
-char	**quote_split(char const *str, char c);
+char	**quote_split(char *str);
 char	**get_cmds_str(char **data, size_t size);
 
 

@@ -36,7 +36,8 @@ clean:
 	@make -C $(FT_PRINTF_DIR) clean
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
-	@make -C $(FT_PRINTF_DIR) fclean
+	rm -f $(NAME)
+	rm -f $(LIBFT)
+	rm -f $(FT_PRINTF)
 
 re: fclean all

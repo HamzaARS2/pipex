@@ -6,24 +6,12 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 12:56:50 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:24:16 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "pipex.h"
-
-
-void    print_cmds(t_cmds cmds)
-{
-    int i = 0;
-
-    while (cmds.list[i])
-    {
-        printf("%s\n", cmds.list[i][0]);
-        i++;
-    }
-}
 
 void    check_args(int size)
 {

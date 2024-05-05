@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:16:07 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/01 15:16:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:19:49 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void wait_childs(int childs) 
 {
-    size_t i;
+    int i;
 
     i = 0;
     while(i < childs)

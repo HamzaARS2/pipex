@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:23:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 11:49:41 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:52:37 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ t_cmds  split_cmds(char **cmds_str)
         error_exit();
     while (cmds_str[i])
     {
-        cmds.list[i] = quote_split(cmds_str[i], ' ');
+        // ft_printf("%s\n", cmds_str[i]);
+        cmds.list[i] = quote_split(cmds_str[i]);
         if (!cmds.list[i])
         {
             freelist(cmds.list, i - 1);
             error_exit();
-        }   
+        }
         i++;
     }
     cmds.list[cmds.size] = 0;
