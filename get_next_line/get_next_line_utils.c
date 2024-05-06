@@ -6,11 +6,12 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:12:56 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 11:58:06 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:29:50 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 static size_t	ft_strlen(char *str)
 {
 	size_t	i;

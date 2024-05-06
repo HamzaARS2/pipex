@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 17:20:17 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:21:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 char	*read_heredoc(char *limiter)
 {
 	char	*line;
-    size_t  limiter_size;
+	size_t	limiter_size;
 	char	*all_lines;
 
-    limiter_size = ft_strlen(limiter);
+	limiter_size = ft_strlen(limiter);
 	ft_printf("pipe heredoc> ");
 	line = get_next_line(0);
 	all_lines = line;
-	
-	while (line && ft_strncmp(line, limiter, limiter_size))
+	while (line)
 	{
 		ft_printf("pipe heredoc> ");
 		line = get_next_line(0);
+		if (!ft_strncmp(line, limiter, limiter_size))
+		{
+			free(line);
+			break ;
+		}
 		all_lines = strcombine(all_lines, line);
 	}
 	if (!all_lines)
@@ -36,8 +40,8 @@ char	*read_heredoc(char *limiter)
 
 int	get_heredoc_input(char *limiter)
 {
-	int p[2];
-	char *data;
+	int		p[2];
+	char	*data;
 
 	data = read_heredoc(limiter);
 	pipe(p);
@@ -50,12 +54,15 @@ int	get_heredoc_input(char *limiter)
 int	open_input_file(char **data, int heredoc)
 {
 	int	in_fd;
-	
+
 	if (heredoc)
 		return (get_heredoc_input(data[1]));
 	in_fd = open(data[0], O_RDONLY);
 	if (in_fd == -1)
+	{
 		error_exit();
+		// ft_printf(": %s\n", data);
+	}
 	return (in_fd);
 }
 
@@ -72,8 +79,6 @@ int	open_output_file(char *path, int heredoc)
 	return (out_fd);
 }
 
-
-
 t_files	get_files(char **data, size_t size, int heredoc)
 {
 	t_files	files;
@@ -84,5 +89,3 @@ t_files	get_files(char **data, size_t size, int heredoc)
 	files.out_fd = open_output_file(data[size - 1], heredoc);
 	return (files);
 }
-
-

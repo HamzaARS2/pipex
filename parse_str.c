@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_split.c                                      :+:      :+:    :+:   */
+/*   parse_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/16 12:00:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 19:08:54 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/06 12:28:18 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/06 13:04:09 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-void    skip_delimeter(char const *str, size_t *i ,char *delimeter)
+void	skip_delimeter(char const *str, size_t *i, char *delimeter)
 {
-    while (str[*i] == *delimeter)
-        (*i)++;
-    if (str[*i] == 34 || str[*i] == 39)
-    {
-        *delimeter = str[*i];
-        (*i)++;
-    }
+	while (str[*i] == *delimeter)
+		(*i)++;
+	if (str[*i] == 34 || str[*i] == 39)
+	{
+		*delimeter = str[*i];
+		(*i)++;
+	}
 }
-
+#include <stdio.h>
 static int	count_words(char const *str, char delimeter)
 {
 	size_t	i;
@@ -37,6 +37,7 @@ static int	count_words(char const *str, char delimeter)
 			i++;
 		if (i > 0 && str[i - 1] != delimeter)
 			count++;
+		i++;
 		delimeter = 32;
 	}
 	return (count);
@@ -47,10 +48,9 @@ static int	freewords(char **words, int i)
 	while (i >= 0 && words[i])
 		free(words[i--]);
 	free(words);
-    return (0);
+	return (0);
 }
 
-#include <stdio.h>
 static char	**strcut(char **words, char const *str, char delimeter,
 		size_t wcount)
 {
@@ -63,15 +63,15 @@ static char	**strcut(char **words, char const *str, char delimeter,
 	windex = 0;
 	while (str[i] && windex < wcount)
 	{
-        skip_delimeter(str, &i, &delimeter);
+		skip_delimeter(str, &i, &delimeter);
 		while (str[i + ccount] && str[i + ccount] != delimeter)
 			ccount++;
 		words[windex] = ft_substr(str, i, ccount);
 		if (!words[windex])
-        {
-            freewords(words, windex - 1);
+		{
+			freewords(words, windex - 1);
 			return (0);
-        }
+		}
 		i += ccount + 1;
 		ccount = 0;
 		windex++;
@@ -81,7 +81,7 @@ static char	**strcut(char **words, char const *str, char delimeter,
 	return (words);
 }
 
-char	**quote_split(char *str)
+char	**parse_str(char *str)
 {
 	size_t	wcount;
 	char	**words;

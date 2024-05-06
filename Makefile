@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 MAIN_FILES = pipex.c files_manager.c split_cmds.c commands_executor.c error_exit.c \
-wait_childs.c path_finder.c quote_split.c get_cmds_str.c
+wait_childs.c path_finder.c parse_str.c get_cmds_str.c
 GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
@@ -29,6 +29,8 @@ $(FT_PRINTF):
 	$(CC) -c $(CFLAGS) $< -o $@
 
 all: $(NAME)
+
+bonus: all
 
 clean:
 	rm -f $(MAIN_OBJS) $(GNL_OBJS)

@@ -12,15 +12,15 @@
 
 #include "pipex.h"
 
-void wait_childs(int childs) 
+void	wait_childs(int childs)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(i < childs)
-    {
-        if (wait(0) == -1)
-            perror("waitpid");
-        i++;
-    }
+	i = 0;
+	while (i < childs)
+	{
+		if (wait(0) == -1)
+			perror("waitpid");
+		i++;
+	}
 }

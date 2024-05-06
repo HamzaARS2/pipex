@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 12:20:59 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/06 12:21:39 by helarras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "pipex.h"
 
-void    error_exit()
+void	error_exit(void)
 {
-    perror("pipex");
-    exit(EXIT_FAILURE);
+	perror("pipex");
+	exit(EXIT_FAILURE);
 }

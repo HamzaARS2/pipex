@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:23:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/05 18:52:37 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:29:16 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,36 @@ static void	freelist(char ***arr, int i)
 	free(arr);
 }
 
-static size_t  arraylen(char **arr)
+static size_t	arraylen(char **arr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (arr[i])
-        i++;
-    return (i);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
 
-t_cmds  split_cmds(char **cmds_str)
+t_cmds	split_cmds(char **cmds_str)
 {
-    size_t i;
-    t_cmds cmds;
-    i = 0;
-    
-    cmds.size = arraylen(cmds_str);
-    cmds.list = malloc((cmds.size + 1) * sizeof(char **));
-    if (!cmds.list)
-        error_exit();
-    while (cmds_str[i])
-    {
-        // ft_printf("%s\n", cmds_str[i]);
-        cmds.list[i] = quote_split(cmds_str[i]);
-        if (!cmds.list[i])
-        {
-            freelist(cmds.list, i - 1);
-            error_exit();
-        }
-        i++;
-    }
-    cmds.list[cmds.size] = 0;
-    return(cmds);
+	size_t	i;
+	t_cmds	cmds;
+
+	i = 0;
+	cmds.size = arraylen(cmds_str);
+	cmds.list = malloc((cmds.size + 1) * sizeof(char **));
+	if (!cmds.list)
+		error_exit();
+	while (cmds_str[i])
+	{
+		cmds.list[i] = parse_str(cmds_str[i]);
+		if (!cmds.list[i])
+		{
+			freelist(cmds.list, i - 1);
+			error_exit();
+		}
+		i++;
+	}
+	cmds.list[cmds.size] = 0;
+	return (cmds);
 }
