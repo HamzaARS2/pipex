@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/06 14:21:05 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:09:55 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int	open_input_file(char **data, int heredoc)
 	if (heredoc)
 		return (get_heredoc_input(data[1]));
 	in_fd = open(data[0], O_RDONLY);
-	if (in_fd == -1)
-	{
-		error_exit();
-		// ft_printf(": %s\n", data);
-	}
+	// if (in_fd == -1)
+	// {
+	// 	exit(0);
+	// 	// ft_printf(": %s\n", data);
+	// }
 	return (in_fd);
 }
 
@@ -71,9 +71,9 @@ int	open_output_file(char *path, int heredoc)
 	int	out_fd;
 
 	if (heredoc)
-		out_fd = open(path, O_CREAT | O_RDWR | O_APPEND, 0777);
+		out_fd = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
-		out_fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0777);
+		out_fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (out_fd == -1)
 		error_exit();
 	return (out_fd);

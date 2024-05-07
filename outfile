@@ -1,16 +1,1 @@
-cmds_checker.o
-commands_executor.c
-commands_executor.o
-error_exit.c
-error_exit.o
-files_manager.o
-get_cmds_str.o
-handle_error.c
-handle_error.o
-parse_str.o
-path_finder.o
-pipex.o
-print_error.o
-split_cmds.o
-todo.txt
-wait_childs.o
+0

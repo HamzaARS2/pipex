@@ -65,5 +65,6 @@ void    set_paths(t_cmds *cmds, char **paths)
     }
     if (error)
         exit(EXIT_FAILURE);
+    
 }
 // TODO: Check this code again, on how to prepare cmd and handle errors

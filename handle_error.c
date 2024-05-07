@@ -3,7 +3,7 @@
 int handle_error(int status, char *cmd)
 {
     if (!status)
-        return ;
+        return (status);
     if (status == 'F')
         ft_printf("pipex : command not found : %s\n", cmd);
     else if (status == 'X')

@@ -17,7 +17,7 @@ FT_PRINTF = $(FT_PRINTF_DIR)libftprintf.a
 NAME = pipex
 
 $(NAME): $(MAIN_OBJS) $(GNL_OBJS) $(LIBFT) $(FT_PRINTF)
-	$(CC) $ $(MAIN_OBJS) $(GNL_OBJS) $(LIBFT) $(FT_PRINTF) -o $@
+	$(CC) $(CFLAGS) $(MAIN_OBJS) $(GNL_OBJS) $(LIBFT) $(FT_PRINTF) -o $@
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
@@ -26,7 +26,7 @@ $(FT_PRINTF):
 	@make -C $(FT_PRINTF_DIR)
 
 %.o: %.c pipex.h get_next_line/get_next_line.h
-	$(CC) -c  $< -o $@
+	$(CC) $(CFLAGS) -c  $< -o $@
 
 all: $(NAME)
 

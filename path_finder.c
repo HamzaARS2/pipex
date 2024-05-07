@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:52:40 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/07 00:01:17 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/07 04:10:37 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	assign_path(char **cmd, char **paths)
 	size_t	i;
 	char	*cmd_path;
 
+	cmd_path = 0;
 	i = 0;
 	if (!cmd)
 		return ('A');

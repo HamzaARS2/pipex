@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/07 00:57:39 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/07 04:09:59 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 void print_cmds(t_cmds cmds)
 {
-    for (int i = 0; i < cmds.size; i++)
+    for (size_t i = 0; i < cmds.size; i++)
     {
-        int k = 0;
+    	int k = 0;
         while (cmds.list[i][k])
         {
             ft_printf("%s ", cmds.list[i][k]);
@@ -69,5 +69,5 @@ int	main(int argc, char **argv, char **env)
 	// set_cmds_path(&cmds, paths);
 	childs = execute_cmds(cmds, files, env);
 	wait_childs(childs);
-	system("leaks -q pipex");
+	// system("leaks -q pipex");
 }
