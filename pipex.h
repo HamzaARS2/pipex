@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 22:17:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/06 12:26:36 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/07 00:40:00 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,7 @@ char		**split_path(char **env);
 char		**parse_str(char *str);
 char		**get_cmds_str(char **data, size_t size);
 
+
+int        handle_error(int status, char *cmd);
+void        set_paths(t_cmds *cmds, char **paths);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:52:40 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/06 15:00:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/07 00:01:17 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ static int	assign_path(char **cmd, char **paths)
 		return ('A');
 	while (paths[i] && *cmd)
 	{
-		if (!ft_strchr(*cmd, '/'))
-			cmd_path = ft_strjoin(paths[i], *cmd);
-		else
-			cmd_path = *cmd;
+
 		if (!cmd_path)
 			return ('A');
 		if (access(cmd_path, F_OK) != -1)

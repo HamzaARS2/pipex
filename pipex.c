@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/06 13:23:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/07 00:57:39 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+
+void print_cmds(t_cmds cmds)
+{
+    for (int i = 0; i < cmds.size; i++)
+    {
+        int k = 0;
+        while (cmds.list[i][k])
+        {
+            ft_printf("%s ", cmds.list[i][k]);
+            k++;
+        }
+        ft_printf("\n");
+    }
+}
 
 void	check_args(int size)
 {
@@ -47,8 +62,12 @@ int	main(int argc, char **argv, char **env)
 	}
 	paths = split_path(env);
 	cmds = split_cmds(cmds_str);
-	set_cmds_path(&cmds, paths);
+    // print_cmds(cmds);
+    set_paths(&cmds, paths);
+    // ft_printf("#####AFTER#####\n");
+    // print_cmds(cmds);
+	// set_cmds_path(&cmds, paths);
 	childs = execute_cmds(cmds, files, env);
 	wait_childs(childs);
-	// system("leaks -q pipex");
+	system("leaks -q pipex");
 }
