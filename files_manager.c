@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 16:51:50 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:44:05 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 char	*read_heredoc(char *limiter)
 {
 	char	*line;
-	size_t	limiter_size;
+	int		quit;
 	char	*all_lines;
 
-	limiter_size = ft_strlen(limiter);
-	ft_printf("pipe heredoc> ");
-	line = get_next_line(0);
-	all_lines = line;
-	while (line)
+	quit = 0;
+	all_lines = 0;
+	while (!quit)
 	{
 		ft_printf("pipe heredoc> ");
 		line = get_next_line(0);
-		printf("strcmp: %i\n", ft_strcmp(line, limiter));
-		// if (!ft_strcmp(line, limiter))
-		// {
-		// 	free(line);
-		// 	break ;
-		// }
-		all_lines = strcombine(all_lines, line);
+		if (!ft_strncmp(line, limiter, ft_strlen(line) - 1))
+			quit = 1;
+		else
+			all_lines = strcombine(all_lines, line);
 	}
 	if (!all_lines)
 		exit(0);
@@ -81,8 +76,6 @@ t_files	get_files(char **data, size_t size, int heredoc)
 {
 	t_files	files;
 
-	if (size < 3)
-		return ((t_files){0});
 	files.in_fd = open_input_file(data, heredoc);
 	files.out_fd = open_output_file(data[size - 1], heredoc);
 	return (files);

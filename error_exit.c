@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:20:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 11:39:15 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:01:30 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@ void	error_exit(char *msg)
 {
 	ft_printf("pipex: %s: ", msg);
 	perror(0);
+		perror(0);
+
 	exit(EXIT_FAILURE);
 }

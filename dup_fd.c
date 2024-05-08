@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:48:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 12:20:10 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:00:14 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ int dup_fd(int fd, int fd2)
 {
     if (fd == -1 || fd2 == -1)
         return (-1);
-        // printf("fd: %i | fd: %i\n", fd, fd2);
     if (dup2(fd, fd2) == -1)
-    {
-        error_exit("wdawdad");
-    }
+        error_exit("");
     return (0);
 }

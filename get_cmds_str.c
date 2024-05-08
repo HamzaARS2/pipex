@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:00:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/04 16:02:42 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:46:31 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ char	**get_cmds_str(char **data, size_t size)
 	int		i;
 	int		end;
 
-	if (size < 3)
-		return (0);
 	cmds_str = malloc((size - 1) * sizeof(char *));
 	if (!cmds_str)
 		return (0);

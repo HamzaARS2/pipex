@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_executor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:20:32 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 15:49:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:32:33 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	run_cmd(t_rw_ends rw_ends, char *cmd[], char **env)
 	duplicate_fds(rw_ends);
 	close_fds(rw_ends.rw);
 	close_fds(rw_ends.pi);
-	if (execve(cmd[0], cmd, env) == -1)
+	ft_printf("cmd: >%s<\n", cmd[0]);
+	execve(cmd[0], cmd, env);
 	error_exit("pipex");
 	return (1);
 }
