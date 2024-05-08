@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   dup_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 12:20:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 11:39:15 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/08 11:48:27 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/08 12:20:10 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	error_exit(char *msg)
+int dup_fd(int fd, int fd2)
 {
-	ft_printf("pipex: %s: ", msg);
-	perror(0);
-	exit(EXIT_FAILURE);
+    if (fd == -1 || fd2 == -1)
+        return (-1);
+        // printf("fd: %i | fd: %i\n", fd, fd2);
+    if (dup2(fd, fd2) == -1)
+    {
+        error_exit("wdawdad");
+    }
+    return (0);
 }

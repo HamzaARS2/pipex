@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 22:17:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/07 00:40:00 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/08 16:48:44 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		wait_childs(int childs);
 char		*get_env_path(char **env);
 int			set_cmds_path(t_cmds *cmds, char **paths);
 t_cmds		split_cmds(char **cmds_str);
-void		error_exit(void);
+void		error_exit(char *msg);
 char		**split_path(char **env);
 char		**parse_str(char *str);
 char		**get_cmds_str(char **data, size_t size);
@@ -53,4 +53,6 @@ char		**get_cmds_str(char **data, size_t size);
 
 int        handle_error(int status, char *cmd);
 void        set_paths(t_cmds *cmds, char **paths);
+int 		dup_fd(int fd, int fd2);
+int	ft_strcmp(const char *s1, const char *s2);
 #endif

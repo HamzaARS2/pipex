@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/07 12:09:55 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/08 16:51:50 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ char	*read_heredoc(char *limiter)
 	{
 		ft_printf("pipe heredoc> ");
 		line = get_next_line(0);
-		if (!ft_strncmp(line, limiter, limiter_size))
-		{
-			free(line);
-			break ;
-		}
+		printf("strcmp: %i\n", ft_strcmp(line, limiter));
+		// if (!ft_strcmp(line, limiter))
+		// {
+		// 	free(line);
+		// 	break ;
+		// }
 		all_lines = strcombine(all_lines, line);
 	}
 	if (!all_lines)
@@ -58,11 +59,8 @@ int	open_input_file(char **data, int heredoc)
 	if (heredoc)
 		return (get_heredoc_input(data[1]));
 	in_fd = open(data[0], O_RDONLY);
-	// if (in_fd == -1)
-	// {
-	// 	exit(0);
-	// 	// ft_printf(": %s\n", data);
-	// }
+	if (in_fd == -1)
+		perror(data[0]);
 	return (in_fd);
 }
 
@@ -75,7 +73,7 @@ int	open_output_file(char *path, int heredoc)
 	else
 		out_fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (out_fd == -1)
-		error_exit();
+		error_exit(path);
 	return (out_fd);
 }
 

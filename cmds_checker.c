@@ -33,12 +33,13 @@ int set_path(char **cmd, char **paths)
     status = 'F';
     while (paths[i] && status)
     {
-        pcmd = assign_path(*cmd, paths[i]);
+        pcmd = assign_path(*cmd, paths[i++]);
         status = check_access(pcmd);
+        if (status)
+            free(pcmd);
         // Checks if the cmd is already have its path.
         if (pcmd == *cmd)
             return (handle_error(status, pcmd));
-        i++;
     }
     if (!status)
     {

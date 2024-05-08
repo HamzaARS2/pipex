@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/07 04:09:59 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/08 16:27:42 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	paths = split_path(env);
 	cmds = split_cmds(cmds_str);
-    // print_cmds(cmds);
     set_paths(&cmds, paths);
-    // ft_printf("#####AFTER#####\n");
-    // print_cmds(cmds);
-	// set_cmds_path(&cmds, paths);
 	childs = execute_cmds(cmds, files, env);
 	wait_childs(childs);
-	// system("leaks -q pipex");
+	system("leaks -q pipex");
 }
