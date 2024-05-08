@@ -64,7 +64,6 @@ int	run_cmd(t_rw_ends rw_ends, char *cmd[], char **env)
 	duplicate_fds(rw_ends);
 	close_fds(rw_ends.rw);
 	close_fds(rw_ends.pi);
-	ft_printf("cmd: >%s<\n", cmd[0]);
 	execve(cmd[0], cmd, env);
 	error_exit("pipex");
 	return (1);

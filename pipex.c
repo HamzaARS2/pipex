@@ -64,22 +64,9 @@ int	main(int argc, char **argv, char **env)
 	prepare_resources(argv + 1, argc - 1, &files, &cmds_str);
 	paths = split_path(env);
 	cmds = split_cmds(cmds_str);
-	print_cmds(cmds);
     set_paths(&cmds, paths);
 	childs = execute_cmds(cmds, files, env);
 	wait_childs(childs);
 	// system("leaks -q pipex");
 }
 
-// check_args(argc - 1);
-// 	if (is_heredoc(argv[1]))
-// 	{
-// 		ft_printf("heredocccc\n");
-// 		files = get_files(argv + 1, argc - 1, 1);
-// 		cmds_str = get_cmds_str(argv + 2, argc - 2);
-// 	}
-// 	else
-// 	{
-// 		files = get_files(argv + 1, argc - 1, 0);
-// 		cmds_str = get_cmds_str(argv + 1, argc - 1);
-// 	}
