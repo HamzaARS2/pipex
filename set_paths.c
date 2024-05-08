@@ -23,7 +23,7 @@ int check_access(char *pcmd)
     return (status);
 }
 
-int set_path(char **cmd, char **paths)
+int set_cmd_path(char **cmd, char **paths)
 {
     size_t i;
     char *pcmd;
@@ -59,13 +59,12 @@ void    set_paths(t_cmds *cmds, char **paths)
     error = 0;
     while (cmds->list[i])
     {
-        status = set_path(cmds->list[i], paths);
+        status = set_cmd_path(cmds->list[i], paths);
         if (status)
             error = status;
         i++;
     }
     if (error)
         exit(EXIT_FAILURE);
-    
 }
 // TODO: Check this code again, on how to prepare cmd and handle errors

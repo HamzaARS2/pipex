@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 MAIN_FILES = pipex.c files_manager.c split_cmds.c commands_executor.c error_exit.c \
-wait_childs.c path_finder.c parse_str.c get_cmds_str.c cmds_checker.c handle_error.c \
+wait_childs.c split_path.c parse_str.c get_cmds_str.c set_paths.c handle_error.c \
 dup_fd.c ft_strcmp.c
 GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 

@@ -16,7 +16,5 @@ void	error_exit(char *msg)
 {
 	ft_printf("pipex: %s: ", msg);
 	perror(0);
-		perror(0);
-
 	exit(EXIT_FAILURE);
 }

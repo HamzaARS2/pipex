@@ -38,14 +38,14 @@ t_cmds	split_cmds(char **cmds_str)
 	cmds.size = arraylen(cmds_str);
 	cmds.list = malloc((cmds.size + 1) * sizeof(char **));
 	if (!cmds.list)
-		error_exit("pipex");
+		error_exit("");
 	while (cmds_str[i])
 	{
 		cmds.list[i] = parse_str(cmds_str[i]);
 		if (!cmds.list[i])
 		{
 			freelist(cmds.list, i - 1);
-			error_exit("pipex");
+			error_exit("");
 		}
 		i++;
 	}

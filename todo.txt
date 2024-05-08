@@ -1,4 +1,0 @@
-support full path cmd.
-executing scripts
-executing scripts with "/bin/bash"
-handle permission and other errors
