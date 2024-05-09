@@ -50,9 +50,8 @@ char		**split_path(char **env);
 char		**parse_str(char *str);
 char		**get_cmds_str(char **data, size_t size);
 
-
-int        handle_error(int status, char *cmd);
-void        set_paths(t_cmds *cmds, char **paths);
-int 		dup_fd(int fd, int fd2);
-int	ft_strcmp(const char *s1, const char *s2);
+int			handle_error(int status, char *cmd);
+void		set_paths(t_cmds *cmds, char **paths);
+int			dup_fd(int fd, int fd2);
+int			ft_strcmp(const char *s1, const char *s2);
 #endif

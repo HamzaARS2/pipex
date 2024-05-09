@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:23:59 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 11:37:01 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:53:22 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ t_cmds	split_cmds(char **cmds_str)
 	cmds.size = arraylen(cmds_str);
 	cmds.list = malloc((cmds.size + 1) * sizeof(char **));
 	if (!cmds.list)
-		error_exit("");
+		error_exit("Error");
 	while (cmds_str[i])
 	{
 		cmds.list[i] = parse_str(cmds_str[i]);
 		if (!cmds.list[i])
 		{
 			freelist(cmds.list, i - 1);
-			error_exit("");
+			error_exit("Error");
 		}
 		i++;
 	}

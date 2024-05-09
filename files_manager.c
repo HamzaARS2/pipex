@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:39 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 13:44:05 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/09 15:05:23 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*read_heredoc(char *limiter)
 		else
 			all_lines = strcombine(all_lines, line);
 	}
+	free(line);
 	if (!all_lines)
 		exit(0);
 	return (all_lines);

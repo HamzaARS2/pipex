@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:28:18 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/06 13:04:09 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:18:49 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "pipex.h"
 
 void	skip_delimeter(char const *str, size_t *i, char *delimeter)
 {
@@ -22,15 +22,17 @@ void	skip_delimeter(char const *str, size_t *i, char *delimeter)
 		(*i)++;
 	}
 }
-#include <stdio.h>
+
 static int	count_words(char const *str, char delimeter)
 {
 	size_t	i;
+	size_t	size;
 	size_t	count;
 
-	count = 0;
 	i = 0;
-	while (str[i])
+	count = 0;
+	size = ft_strlen(str);
+	while (i < size)
 	{
 		skip_delimeter(str, &i, &delimeter);
 		while (str[i] && str[i] != delimeter)

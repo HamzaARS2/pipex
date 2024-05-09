@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_executor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:20:32 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 13:32:33 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/09 17:15:02 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	run_cmd(t_rw_ends rw_ends, char *cmd[], char **env)
 	close_fds(rw_ends.rw);
 	close_fds(rw_ends.pi);
 	execve(cmd[0], cmd, env);
-	error_exit("");
+	error_exit(cmd[0]);
 	return (1);
 }
 

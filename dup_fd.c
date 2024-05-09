@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   dup_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:48:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 13:00:14 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/09 17:09:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int dup_fd(int fd, int fd2)
+int	dup_fd(int fd, int fd2)
 {
-    if (fd == -1 || fd2 == -1)
-        return (-1);
-    if (dup2(fd, fd2) == -1)
-        error_exit("");
-    return (0);
+	if (fd == -1 || fd2 == -1)
+		return (-1);
+	if (dup2(fd, fd2) == -1)
+		error_exit("dup error");
+	return (0);
 }

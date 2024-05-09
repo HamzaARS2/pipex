@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:58:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/08 13:58:21 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/09 17:01:42 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
-void print_cmds(t_cmds cmds)
-{
-    for (size_t i = 0; i < cmds.size; i++)
-    {
-    	int k = 0;
-        while (cmds.list[i][k])
-        {
-            ft_printf("%s ", cmds.list[i][k]);
-            k++;
-        }
-        ft_printf("\n");
-    }
-}
 
 void	check_args(int size, int heredoc)
 {
@@ -40,9 +25,10 @@ int	is_heredoc(char *arg)
 	return (ft_strcmp(arg, "here_doc") == 0);
 }
 
-void	prepare_resources(char **data, int size, t_files *files, char ***cmds_str)
+void	prepare_resources(char **data, int size, t_files *files,
+		char ***cmds_str)
 {
-	int heredoc;
+	int	heredoc;
 
 	heredoc = is_heredoc(data[0]);
 	check_args(size, heredoc);
@@ -50,7 +36,7 @@ void	prepare_resources(char **data, int size, t_files *files, char ***cmds_str)
 	if (heredoc)
 		*cmds_str = get_cmds_str(data + 1, size - 1);
 	else
-		*cmds_str = get_cmds_str(data, size);	
+		*cmds_str = get_cmds_str(data, size);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -64,9 +50,7 @@ int	main(int argc, char **argv, char **env)
 	prepare_resources(argv + 1, argc - 1, &files, &cmds_str);
 	paths = split_path(env);
 	cmds = split_cmds(cmds_str);
-    set_paths(&cmds, paths);
+	set_paths(&cmds, paths);
 	childs = execute_cmds(cmds, files, env);
 	wait_childs(childs);
-	// system("leaks -q pipex");
 }
-
